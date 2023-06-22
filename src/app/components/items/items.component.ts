@@ -35,17 +35,21 @@ export class ItemsComponent implements OnInit {
         price: 800,
         quantity: 1,
         completed: false,
-      },
+      },   
     ]
+    this.getTotal();
   }
   deleteItem(item:Item){
  this.items =this.items.filter(x => x.id != item.id)
+ this.getTotal()
   }
 
   getTotal(){
-    this.total = this.items.filter(x => !x.completed)
-                  .map(x => x.quantity * x.price)
-                  .reduce( (acc, item) => acc += item), 0;
+    this.total = this.items
+    .filter(item => item.completed === false)
+    .map(item => item.price * item.quantity)
+    .reduce((acc, item) => acc += item, 0);
   }
 
-}
+  }
+
